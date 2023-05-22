@@ -353,3 +353,44 @@ console.log(myActions("undo")); // => should log 'nothing to undo'
 // You may assume that the given array is long enough to give a 'bust' before running out of numbers.
 
 // BONUS: Implement blackjack so the DEALER function can return more PLAYER functions that will each continue to take the next number in the array after the previous PLAYER function left off. You will just need to make sure the array has enough numbers for all the PLAYER functions.
+
+// Solution
+let blackjack = (array) => {
+  let dealer = (arg1, arg2) => {
+    let numberOfCallTimes = 0,
+      sum = 0,
+      i = 0;
+    let player = () => {
+      if (numberOfCallTimes == 0) {
+        numberOfCallTimes++;
+        sum += arg1 + arg2;
+        return sum;
+      } else if (numberOfCallTimes == 1) {
+        sum += array[i];
+        if (sum < 21) {
+          i++;
+          return sum;
+        }
+        numberOfCallTimes++;
+        return "bust";
+      } else {
+        return "you are done!";
+      }
+    };
+    return player;
+  };
+  return dealer;
+};
+
+// Test Cases
+const deal = blackjack([
+  2, 6, 1, 7, 11, 4, 6, 3, 9, 8, 9, 3, 10, 4, 5, 3, 7, 4, 9, 6, 10, 11,
+]);
+const i_like_to_live_dangerously = deal(4, 5);
+console.log(i_like_to_live_dangerously()); // => should log 9
+console.log(i_like_to_live_dangerously()); // => should log 11
+console.log(i_like_to_live_dangerously()); // => should log 17
+console.log(i_like_to_live_dangerously()); // => should log 18
+console.log(i_like_to_live_dangerously()); // => should log 'bust'
+console.log(i_like_to_live_dangerously()); // => should log 'you are done!'
+console.log(i_like_to_live_dangerously()); // => should log 'you are done!'
