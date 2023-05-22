@@ -275,11 +275,64 @@ console.log(avgSoFar()); // => should log 8
 
 // Create a function makeFuncTester that accepts an array (of two-element sub-arrays), and returns a function (that will accept a callback). The returned function should return true if the first elements (of each sub-array) being passed into the callback all yield the corresponding second elements (of the same sub-array). Otherwise, the returned function should return false.
 
+// Solution
 let makeFuncTester = (array) => {
-  return (callback) => {};
+  let trueTest = false;
+  return (callback) => {
+    array.forEach((subArray) => {
+      if (callback(subArray[0]) == subArray[1]) {
+        trueTest = true;
+      }
+    });
+    return trueTest;
+  };
 };
 
+// Test Cases
+const capLastTestCases = [];
+capLastTestCases.push(["hello", "hellO"]);
+capLastTestCases.push(["goodbye", "goodbyE"]);
+capLastTestCases.push(["howdy", "howdY"]);
+const shouldCapitalizeLast = makeFuncTester(capLastTestCases);
+const capLastAttempt1 = (str) => str.toUpperCase();
+const capLastAttempt2 = (str) => str.slice(0, -1) + str.slice(-1).toUpperCase();
+console.log(shouldCapitalizeLast(capLastAttempt1)); // => should log false
+console.log(shouldCapitalizeLast(capLastAttempt2)); // => should log true
+
 // Create a function makeHistory that accepts a number (which will serve as a limit), and returns a function (that will accept a string). The returned function will save a history of the most recent "limit" number of strings passed into the returned function (one per invocation only). Every time a string is passed into the function, the function should return that same string with the word 'done' after it (separated by a space). However, if the string 'undo' is passed into the function, then the function should delete the last action saved in the history, and return that deleted string with the word 'undone' after (separated by a space). If 'undo' is passed into the function and the function's history is empty, then the function should return the string 'nothing to undo'.
+
+// Solution
+let makeHistory = (limit) => {
+  let history = [];
+  return (string) => {
+    if (string != "undo") {
+      if (history.length >= limit) {
+        // Replacing the oldest element in history wioth the new string if the limit is reached
+        history[0] = string;
+      } else {
+        history.push(string);
+      }
+      return `${string} done`;
+    } else {
+      if (history.length == 0) {
+        return `nothing to undo`;
+      } else {
+        return `${history.pop()} undone`;
+      }
+    }
+  };
+};
+
+// Test cases
+const myActions = makeHistory(2);
+console.log(myActions("jump")); // => should log 'jump done'
+console.log(myActions("undo")); // => should log 'jump undone'
+console.log(myActions("walk")); // => should log 'walk done'
+console.log(myActions("code")); // => should log 'code done'
+console.log(myActions("pose")); // => should log 'pose done'
+console.log(myActions("undo")); // => should log 'pose undone'
+console.log(myActions("undo")); // => should log 'code undone'
+console.log(myActions("undo")); // => should log 'nothing to undo'
 
 // Inspect the commented out test cases carefully if you need help to understand these instructions.
 
