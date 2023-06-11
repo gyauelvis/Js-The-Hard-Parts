@@ -22,10 +22,10 @@ let once = (callback) => {
   let answer;
   return (input) => {
     if (beenCalledBefore == false) {
-      result = callback(input);
+      answer = callback(input);
       beenCalledBefore = true;
     }
-    return result;
+    return answer;
   };
 };
 
