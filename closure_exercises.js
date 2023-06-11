@@ -19,9 +19,9 @@ addByTwo(3); // => should return 5
 // Solution
 let once = (callback) => {
   let beenCalledBefore = false;
-  let answer;
+  let result;
   return (input) => {
-    if (beenCalledBefore == false) {
+    if (!beenCalledBefore) {
       result = callback(input);
       beenCalledBefore = true;
     }
