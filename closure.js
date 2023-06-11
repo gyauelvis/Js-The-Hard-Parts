@@ -30,7 +30,6 @@ result = generatedFunc();
 // Remember that after running outer(), it get popped from the CALL STACK and every info it had
 // Apart from the value it returned it permanently gone.
 // But it turns out during the shipment of the incrementCounter() from the ounter(), it gets shipped with the
-// But it turns out during the shipment of the incrementCounter() from the ounter(), it gets shipped with the
 // with the values that were made reference to in the incrementCounter() from the local memory of the outer() 
 // and saves it in the global memory. And that is the bonus that comes with
 // returning a function from a function. And hence when running generatedFunc(), it finds the counter var in the global
